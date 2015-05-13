@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.io.File;
 import java.util.LinkedList;
 
 /**
@@ -16,6 +17,7 @@ public class nodo {
     private nodo nodoPropio= new nodo();
     private String contenido="";
     private int peso=0;
+    private File pagina;
     private String identificador="";
 
     /**
