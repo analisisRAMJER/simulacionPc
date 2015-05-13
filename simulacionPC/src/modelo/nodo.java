@@ -18,6 +18,7 @@ public class nodo {
     private String contenido="";
     private int peso=0;
     private File pagina;
+    private int id;
     private String identificador="";
 
     /**
