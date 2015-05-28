@@ -35,12 +35,15 @@ public class Lectura {
     private String textoDeDocx;
     private InputStream entradaArch1;
     private InputStream entradaArch2;
+    private File archivoDoc;
 
     public Lectura() {
     }
 
     public Lectura(String ruta) {
         this.ruta = ruta;
+        archivoDoc = new File(this.ruta);
+        comprobar();
     }
 
     public String[] Leer() {
@@ -50,11 +53,11 @@ public class Lectura {
         //Se crea el objeto File con la ruta del archivo
         //En la ruta recuerden que se debe poner doble barra "\\"
         //File archivoDocx = new File(getRuta());
-        File archivoDoc = new File(getRuta());
+       
 
         try {
             //Creamos el stream fijense bien los objetos usados
-            setEntradaArch1(new FileInputStream(archivoDoc));
+            setEntradaArch1(new FileInputStream(getArchivoDoc()));
             //setEntradaArch2(new FileInputStream(archivoDocx));
 
         } catch (Exception ex) {
@@ -62,6 +65,7 @@ public class Lectura {
             System.out.println("Fallo al tratar de abrir el archivo.\n" + ex.toString()
                     + "Error en archivo"
                     + javax.swing.JOptionPane.ERROR_MESSAGE);
+            setEncontro(false);
         }
 
         //Metodos para leer dependiendo de si es .doc o .docx
@@ -242,6 +246,35 @@ public class Lectura {
      */
     public void setEntradaArch2(InputStream entradaArch2) {
         this.entradaArch2 = entradaArch2;
+    }
+
+    private void comprobar() {
+        try {
+            //Creamos el stream fijense bien los objetos usados
+            setEntradaArch1(new FileInputStream(getArchivoDoc()));
+            //setEntradaArch2(new FileInputStream(archivoDocx));
+
+        } catch (Exception ex) {
+            //Manejar Excepcion IO y FileNotFound
+            System.out.println("Fallo al tratar de abrir el archivo.\n" + ex.toString()
+                    + "Error en archivo"
+                    + javax.swing.JOptionPane.ERROR_MESSAGE);
+            setEncontro(false);
+        }
+    }
+
+    /**
+     * @return the archivoDoc
+     */
+    public File getArchivoDoc() {
+        return archivoDoc;
+    }
+
+    /**
+     * @param archivoDoc the archivoDoc to set
+     */
+    public void setArchivoDoc(File archivoDoc) {
+        this.archivoDoc = archivoDoc;
     }
     
 

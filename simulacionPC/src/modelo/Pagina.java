@@ -54,6 +54,9 @@ public class Pagina {
     private int asignarNombre() {
         Random  rnd = new Random();
         int nombre=((int) (rnd.nextInt()*rnd.nextDouble()));
+        if (nombre < 0) {
+            nombre=nombre*-1;
+        }
         System.out.println("nombre asignado a la pila "+nombre);
         return nombre;
     }

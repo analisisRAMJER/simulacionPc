@@ -24,7 +24,7 @@ public class Procesador {
         int i=1;
         Lectura auxLee=  new Lectura(new String("C:\\Users\\TOSHIBA\\Documents\\ANALISIS\\PROYECTO\\simulacionPC\\simulacionPc\\simulacionPC\\src\\b\\documento"+i+".doc"));
         
-        while (auxLee.Leer().length > 0) { 
+        while (auxLee.isEncontro()) { 
             //obtiene las palabras o objetos del documento
             String[] AuxObjetos=auxLee.Leer();
              //crea una nueva pila para adicionar los elemento y esta pila es agregada al arbol
@@ -34,9 +34,9 @@ public class Procesador {
             
             i++;
             //se intenta procesar una nueva pagina
-            auxLee=  new Lectura(new String("b\\documento"+i+".docx"));
+            auxLee=  new Lectura(new String("C:\\Users\\TOSHIBA\\Documents\\ANALISIS\\PROYECTO\\simulacionPC\\simulacionPc\\simulacionPC\\src\\b\\documento"+i+".doc"));
         }
-        System.out.println("bien");
+        System.out.println("bien estos son los nombres de las pilas: "+nombresDiscos);
 }
     //crea la nueva pila e ingresa sus objetos
     public Pagina apilar(Object A[]){
