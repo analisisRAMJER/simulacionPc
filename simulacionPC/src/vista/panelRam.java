@@ -5,6 +5,9 @@
  */
 package vista;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  *
  * @author TOSHIBA
@@ -16,6 +19,10 @@ public class panelRam extends javax.swing.JPanel {
      */
     public panelRam() {
         initComponents();
+    }
+    public void pain (Graphics g){
+        g.setColor(Color.red);
+        g.fillOval(0, 0, 30, 30);
     }
 
     /**

@@ -5,17 +5,22 @@
  */
 package vista;
 
+import java.util.LinkedList;
+import modelo.Procesador;
+
 /**
  *
  * @author TOSHIBA
  */
 public class frmPrimeraForma extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form frmPrimeraForma
      */
     public frmPrimeraForma() {
         initComponents();
+     
     }
 
     /**
@@ -54,9 +59,9 @@ public class frmPrimeraForma extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(49, 49, 49)
                 .addComponent(panelRam1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,4 +105,6 @@ public class frmPrimeraForma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private vista.panelRam panelRam1;
     // End of variables declaration//GEN-END:variables
+
+    
 }

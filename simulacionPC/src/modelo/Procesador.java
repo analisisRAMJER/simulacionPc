@@ -12,10 +12,10 @@ import java.util.LinkedList;
  * @author TOSHIBA
  */
 public class Procesador {
-    LinkedList<String>nombresDiscos=new LinkedList<>();
+    private LinkedList<Integer>nombresDiscos=new LinkedList<>();
    
-    Modelo.Btree arbol= new Modelo.Btree();
-    Ram ram= new Ram();
+    private Modelo.Btree arbol= new Modelo.Btree();
+    private Ram ram= new Ram();
     
     /*se realizara buscada de paginas,
     se ingresara a una nueva pila 
@@ -36,7 +36,7 @@ public class Procesador {
             //se intenta procesar una nueva pagina
             auxLee=  new Lectura(new String("C:\\Users\\TOSHIBA\\Documents\\ANALISIS\\PROYECTO\\simulacionPC\\simulacionPc\\simulacionPC\\src\\b\\documento"+i+".doc"));
         }
-        System.out.println("bien estos son los nombres de las pilas: "+nombresDiscos);
+        System.out.println("bien estos son los nombres de las pilas: "+getNombresDiscos());
 }
     //crea la nueva pila e ingresa sus objetos
     public Pagina apilar(Object A[]){
@@ -49,12 +49,54 @@ public class Procesador {
     }
 //se guarda la pila en el arbol
     private void guardarPagina(Pagina pagina) {
-       nombresDiscos.add(""+pagina.getCodigo());
-       arbol.add(pagina.getCodigo(), pagina);
+        getNombresDiscos().add(pagina.getCodigo());
+        getArbol().add(pagina.getCodigo(), pagina);
        cargarEnRam(pagina.obtnerStackPointer(),pagina.getCodigo());
     }
 // se envia el stack pointer a la ram
    
     private void cargarEnRam(CaracteristicasObjPagina obtnerStackPointer, int codigo) {
-    ram.pushRam(obtnerStackPointer, codigo);  }
+        getRam().pushRam(obtnerStackPointer, codigo);  }
+
+    /**
+     * @return the nombresDiscos
+     */
+    public LinkedList<Integer> getNombresDiscos() {
+        return nombresDiscos;
+    }
+
+    /**
+     * @param nombresDiscos the nombresDiscos to set
+     */
+    public void setNombresDiscos(LinkedList<Integer> nombresDiscos) {
+        this.nombresDiscos = nombresDiscos;
+    }
+
+    /**
+     * @return the arbol
+     */
+    public Modelo.Btree getArbol() {
+        return arbol;
+    }
+
+    /**
+     * @param arbol the arbol to set
+     */
+    public void setArbol(Modelo.Btree arbol) {
+        this.arbol = arbol;
+    }
+
+    /**
+     * @return the ram
+     */
+    public Ram getRam() {
+        return ram;
+    }
+
+    /**
+     * @param ram the ram to set
+     */
+    public void setRam(Ram ram) {
+        this.ram = ram;
+    }
 }
