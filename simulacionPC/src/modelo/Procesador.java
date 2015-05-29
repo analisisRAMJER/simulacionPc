@@ -51,12 +51,17 @@ public class Procesador {
     private void guardarPagina(Pagina pagina) {
         getNombresDiscos().add(pagina.getCodigo());
         getArbol().add(pagina.getCodigo(), pagina);
-       cargarEnRam(pagina.obtnerStackPointer(),pagina.getCodigo());
+       cargarEnRam(pagina.obtnerStackPointer(),pagina.getCodigo(),true);
+    }
+    // agregar mas elementos a una pila
+    public void nuevoObjPila(int IdPila){
+        Object pila = getArbol().search(IdPila);
+        
     }
 // se envia el stack pointer a la ram
    
-    private void cargarEnRam(CaracteristicasObjPagina obtnerStackPointer, int codigo) {
-        getRam().pushRam(obtnerStackPointer, codigo);  }
+    public void cargarEnRam(CaracteristicasObjPagina objPagina, int codigo, boolean stackPointer) {
+        getRam().pushRam(objPagina, codigo,stackPointer);  }
 
     /**
      * @return the nombresDiscos

@@ -11,18 +11,20 @@ package modelo;
  */
 
 // se crea esta clase para facilidad de extencion o cambios
-public class CaracteristicasStackPointer {
+public class CaracteristicasIdMemoria {
     private int pilaPerteneciente;
+    private boolean StackPointer;
     
 
-    public CaracteristicasStackPointer() {
+    public CaracteristicasIdMemoria() {
     }
 
-    public CaracteristicasStackPointer(int pilaPerteneciente) {
+    public CaracteristicasIdMemoria(int pilaPerteneciente, boolean StackPointer) {
         this.pilaPerteneciente = pilaPerteneciente;
-        
+        this.StackPointer = StackPointer;
     }
 
+    
     
     
 
@@ -38,6 +40,20 @@ public class CaracteristicasStackPointer {
      */
     public void setPilaPerteneciente(int pilaPerteneciente) {
         this.pilaPerteneciente = pilaPerteneciente;
+    }
+
+    /**
+     * @return the StackPointer
+     */
+    public boolean isStackPointer() {
+        return StackPointer;
+    }
+
+    /**
+     * @param StackPointer the StackPointer to set
+     */
+    public void setStackPointer(boolean StackPointer) {
+        this.StackPointer = StackPointer;
     }
 
     
