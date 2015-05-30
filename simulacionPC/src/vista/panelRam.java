@@ -5,14 +5,20 @@
  */
 package vista;
 
+import Modelo.Btree;
+import Modelo.Node;
 import java.awt.Color;
 import java.awt.Graphics;
+import modelo.Procesador;
+import org.apache.poi.hdf.extractor.util.BTreeSet;
 
 /**
  *
  * @author TOSHIBA
  */
-public class panelRam extends javax.swing.JPanel {
+public class panelRam extends javax.swing.JPanel implements Runnable{
+    private Procesador p1= new Procesador();
+    int x=0,y=0;
 
     /**
      * Creates new form panelRam
@@ -21,8 +27,16 @@ public class panelRam extends javax.swing.JPanel {
         initComponents();
     }
     public void pain (Graphics g){
-        g.setColor(Color.red);
-        g.fillOval(0, 0, 30, 30);
+        Btree arbol = p1.getArbol();
+        Node nodo = arbol.getmRootNode();
+        
+                
+            
+        
+    }
+    @Override
+    public void run(){
+        
     }
 
     /**
@@ -49,4 +63,20 @@ public class panelRam extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
+    
+
+    /**
+     * @return the p1
+     */
+    public Procesador getP1() {
+        return p1;
+    }
+
+    /**
+     * @param p1 the p1 to set
+     */
+    public void setP1(Procesador p1) {
+        this.p1 = p1;
+    }
 }

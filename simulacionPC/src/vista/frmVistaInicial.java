@@ -6,7 +6,11 @@
 package vista;
 
 import Modelo.Btree;
+import java.awt.event.ItemEvent;
 import java.util.LinkedList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import modelo.CaracteristicasObjPagina;
 import modelo.Pagina;
@@ -48,9 +52,14 @@ public class frmVistaInicial extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         combo2 = new javax.swing.JComboBox();
         btnConfirmarEliminar = new javax.swing.JButton();
+        jlCantidadObjetos = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 0));
 
+        combo1.setFont(new java.awt.Font("Trebuchet MS", 3, 12)); // NOI18N
         combo1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 combo1ItemStateChanged(evt);
@@ -65,7 +74,7 @@ public class frmVistaInicial extends javax.swing.JFrame {
         );
         panelRam1Layout.setVerticalGroup(
             panelRam1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
+            .addGap(0, 230, Short.MAX_VALUE)
         );
 
         paginaArea.setEditable(false);
@@ -73,6 +82,7 @@ public class frmVistaInicial extends javax.swing.JFrame {
         paginaArea.setRows(5);
         jScrollPane1.setViewportView(paginaArea);
 
+        btnEliminar.setFont(new java.awt.Font("Trebuchet MS", 3, 12)); // NOI18N
         btnEliminar.setText("Eliminar Objeto");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,13 +90,15 @@ public class frmVistaInicial extends javax.swing.JFrame {
             }
         });
 
-        btnAgregar.setText("agregar ");
+        btnAgregar.setFont(new java.awt.Font("Trebuchet MS", 3, 12)); // NOI18N
+        btnAgregar.setText("Agregar ");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
 
+        btnConfirmar.setFont(new java.awt.Font("Trebuchet MS", 3, 12)); // NOI18N
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,8 +106,20 @@ public class frmVistaInicial extends javax.swing.JFrame {
             }
         });
 
+        combo2.setFont(new java.awt.Font("Trebuchet MS", 3, 12)); // NOI18N
         combo2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "objetos a eliminar" }));
+        combo2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo2ItemStateChanged(evt);
+            }
+        });
+        combo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo2ActionPerformed(evt);
+            }
+        });
 
+        btnConfirmarEliminar.setFont(new java.awt.Font("Trebuchet MS", 3, 12)); // NOI18N
         btnConfirmarEliminar.setText("confirmar eliminar");
         btnConfirmarEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,81 +127,112 @@ public class frmVistaInicial extends javax.swing.JFrame {
             }
         });
 
+        jlCantidadObjetos.setFont(new java.awt.Font("Trebuchet MS", 3, 10)); // NOI18N
+        jlCantidadObjetos.setText("Cantidad de objetos");
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 3, 10)); // NOI18N
+        jLabel1.setText("paginas");
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 3, 12)); // NOI18N
+        jLabel2.setText("RAM");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnEliminar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(btnEliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAgregar)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtEditable, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnConfirmar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel1)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnAgregar)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEditable, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(btnConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConfirmarEliminar))
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelRam1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(combo2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlCantidadObjetos))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnConfirmarEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelRam1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnAgregar)
-                    .addComponent(txtEditable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConfirmar)
-                    .addComponent(combo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConfirmarEliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelRam1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 11, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlCantidadObjetos))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar)
+                            .addComponent(btnAgregar)
+                            .addComponent(txtEditable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnConfirmar)
+                            .addComponent(combo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnConfirmarEliminar))
+                        .addGap(2, 2, 2)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 private void iniciar() {
-        habilitarEliminacion();
-        habilitarEdicion();
+        desahabilitarTodo();
         pr.procesar();
-        llenarComboBox(pr.getNombresDiscos().size(),1);
+        llenarComboBox(pr.getNombresDiscos().size(), 1);
+        panelRam1.setP1(pr);
 
     }
 
-    private void llenarComboBox(int size,int combo) {
+    private void llenarComboBox(int size, int combo) {
 
         //System.out.println("no " + nombresDiscos);
-        if(combo == 1){
-        combo1.setBounds(10, 10, 80, 20);
+        if (combo == 1) {
+            combo1.setBounds(10, 10, 80, 20);
 
-        for (int i = 1; i <= size; i++) {
-            combo1.addItem(i);
+            for (int i = 1; i <= size; i++) {
+                combo1.addItem(i);
 
-        }}
+            }
+        }
         if (combo == 2) {
-          for (int i = 1; i <= size; i++) {
-            combo2.addItem(i);
+            combo2.removeAllItems();
+            for (int i = 1; i <= size; i++) {
+                combo2.addItem(i);
 
-        }   
-            
+            }
+
         }
         //jComboBox1.addItemListener(this);
 
@@ -187,75 +242,91 @@ private void iniciar() {
         String itemCount;
         itemCount = combo1.getSelectedItem().toString();
         carga(itemCount);
-
+        desahabilitarTodo();
 
     }//GEN-LAST:event_combo1ItemStateChanged
+    public void habilitarAgregacion() {
+        btnConfirmarEliminar.setVisible(false);
+        btnConfirmar.setVisible(true);
+        combo2.setVisible(false);
+        txtEditable.setEditable(true);
+        jlCantidadObjetos.setVisible(false);
+    }
 
+    ;
+    public void desahabilitarTodo() {
+        btnConfirmarEliminar.setVisible(false);
+        btnConfirmar.setVisible(false);
+        combo2.setVisible(false);
+        txtEditable.setEditable(false);
+        jlCantidadObjetos.setVisible(false);
+    }
+
+    public void habilitarEliminacion() {
+        btnConfirmarEliminar.setVisible(true);
+        btnConfirmar.setVisible(false);
+        combo2.setVisible(true);
+        txtEditable.setEditable(false);
+        jlCantidadObjetos.setVisible(true);
+    }
+
+    ;
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         habilitarEliminacion();
         llenarComboBox(objEncontrado.getCaracPila().size(), 2);
     }//GEN-LAST:event_btnEliminarActionPerformed
 // permite editar en la caja de texto 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // paginaArea.setEditable(true);
-        habilitarEdicion();
-        System.out.println("entro");
-//        frmEdicion jFrame = new frmEdicion();//2do jframe editar pagina
-//
-//        jFrame.setVisible(true);
-        /*if (jFrame.getObjs()!=null) {
-         System.out.println("al if del frame si entra");
-         String vecObjs[]=jFrame.getObjs().toString().split(" ");
-         for (String o : vecObjs) {
-         objEncontrado.pushPila(o);
-         }
-         paginaArea.setText("");
-         carga(""+objEncontrado.getCodigo());
-            
-         //pr.getArbol().search(objEncontrado.getCodigo()).
-         }*/
-        //System.out.println("salto el if");
-
+        habilitarAgregacion();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         for (String o : txtEditable.getText().split(" ")) {
-         objEncontrado.pushPila(o);
-         }
+            objEncontrado.pushPila(o);
+        }
         pr.cargarEnRam(objEncontrado.obtnerStackPointer(), objEncontrado.getCodigo(), true);
         cargarArea(objEncontrado);
         txtEditable.setText("");
-        txtEditable.setEditable(false);
-        btnConfirmar.setVisible(false);
+        
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnConfirmarEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEliminarActionPerformed
         String itemCount;
         itemCount = combo2.getSelectedItem().toString();
         int cantidadEliminar = Integer.parseInt(itemCount);
-        int showConfirmDialog = JOptionPane.showConfirmDialog(rootPane, "Esta seguro de eliminar "+cantidadEliminar+" objetos ");
-        System.out.println("show : "+showConfirmDialog);
-        if (showConfirmDialog==0) {
+        int showConfirmDialog = JOptionPane.showConfirmDialog(rootPane, "Esta seguro de eliminar " + cantidadEliminar + " objetos ");
+        System.out.println("show : " + showConfirmDialog);
+        if (showConfirmDialog == 0) {
             eliminarDePila(cantidadEliminar);
             pr.getRam().pullRam(cantidadEliminar);
             llenarComboBox(objEncontrado.getCaracPila().size(), 2);
             cargarArea(objEncontrado);
-            
+
         }
+        desahabilitarTodo();
     }//GEN-LAST:event_btnConfirmarEliminarActionPerformed
+
+    private void combo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo2ActionPerformed
+
+    private void combo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo2ItemStateChanged
+
+    }//GEN-LAST:event_combo2ItemStateChanged
     //cargara todos los objetos(palabras) tanto a la ram como a el area de texto para el usuario
+
     private void cargarArea(Pagina objPagina) {
         String aux = "";
         //carga el stack teniendo en cuenta que se encuentra en el tamaño de la pila -1
-        aux=(String) objPagina.getObjetosPila().get(objPagina.getObjetosPila().size()-1);
-            // size -2 para no incluir el StackPoiner
+        aux = (String) objPagina.getObjetosPila().get(objPagina.getObjetosPila().size() - 1);
+        // size -2 para no incluir el StackPoiner
         for (int i = objPagina.getObjetosPila().size() - 2; i >= 0; i--) {
             //llama al metodo push de la ram donde empieza agrega elemento por elemento a la pila
             pr.cargarEnRam(objPagina.getCaracPila().get(i), objPagina.getCodigo(), false);
             String palabra = (String) objPagina.getObjetosPila().get(i);
             aux = aux + " " + palabra;
         }
-        
+
         paginaArea.setText(aux);
     }
 
@@ -302,7 +373,10 @@ private void iniciar() {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox combo1;
     private javax.swing.JComboBox combo2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jlCantidadObjetos;
     private javax.swing.JTextArea paginaArea;
     private vista.panelRam panelRam1;
     private javax.swing.JTextField txtEditable;
@@ -324,37 +398,13 @@ private void iniciar() {
             System.out.println("no existe");
         }
     }
-
-    private void habilitarEdicion() {
-        if (txtEditable.isEditable() && btnConfirmar.isVisible()) {
-            txtEditable.setText("");
-            txtEditable.setEditable(false);
-            btnConfirmar.setVisible(false);
-        } else {
-            txtEditable.setEditable(true);
-            btnConfirmar.setVisible(true);
-        }
-  }
-
-    private void habilitarEliminacion() {
-        if (combo2.isVisible() && btnConfirmarEliminar.isVisible()) {
-            combo2.setVisible(false);
-            btnConfirmarEliminar.setVisible(false);
-        }
-        else{
-            combo2.setVisible(true);
-            btnConfirmarEliminar.setVisible(true);
-        }
-    }
-
     private void eliminarDePila(int cantidadEliminar) {
         for (int i = 0; i < cantidadEliminar; i++) {
             objEncontrado.popPila();
             // se modifica el nuevo StackPointer
             pr.cargarEnRam(objEncontrado.obtnerStackPointer(), objEncontrado.getCodigo(), true);
-            
-            
         }
     }
+
 
 }

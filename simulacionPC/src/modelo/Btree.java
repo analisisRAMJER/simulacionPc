@@ -397,6 +397,11 @@ public class Btree {
         }
         return array;
     }
+
+    public Node getmRootNode() {
+        return mRootNode;
+    }
+    
 }
    
 
