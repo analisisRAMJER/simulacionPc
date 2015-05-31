@@ -208,8 +208,10 @@ public class frmVistaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 private void iniciar() {
+    // DESABILITA LOS BOTONES DE ELIMINAR Y AGREGAR 
         desahabilitarTodo();
         pr.procesar();
+        pr.getArbol().obtenerInformacion();
         llenarComboBox(pr.getNombresDiscos().size(), 1);
         panelRam1.setP1(pr);
 

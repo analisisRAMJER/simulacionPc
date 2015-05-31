@@ -30,6 +30,8 @@ public class panelRam extends javax.swing.JPanel implements Runnable{
         Btree arbol = p1.getArbol();
         Node nodo = arbol.getmRootNode();
         
+        
+        
                 
             
         

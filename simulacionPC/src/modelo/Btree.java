@@ -2,6 +2,8 @@ package Modelo;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import javax.sound.sampled.FloatControl;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,22 +16,62 @@ import java.util.ArrayList;
  * @author toshiba
  */
 public class Btree {
+
+    /**
+     * @return the T
+     */
+    public static int getT() {
+        return T;
+    }
+
+    /**
+     * @return the LEFT_CHILD_NODE
+     */
+    public static int getLEFT_CHILD_NODE() {
+        return LEFT_CHILD_NODE;
+    }
+
+    /**
+     * @param aLEFT_CHILD_NODE the LEFT_CHILD_NODE to set
+     */
+    public static void setLEFT_CHILD_NODE(int aLEFT_CHILD_NODE) {
+        LEFT_CHILD_NODE = aLEFT_CHILD_NODE;
+    }
+
+    /**
+     * @return the RIGHT_CHILD_NODE
+     */
+    public static int getRIGHT_CHILD_NODE() {
+        return RIGHT_CHILD_NODE;
+    }
+
+    /**
+     * @param aRIGHT_CHILD_NODE the RIGHT_CHILD_NODE to set
+     */
+    public static void setRIGHT_CHILD_NODE(int aRIGHT_CHILD_NODE) {
+        RIGHT_CHILD_NODE = aRIGHT_CHILD_NODE;
+    }
+    private int altura;
+    private int niveles;
+    private LinkedList<Node>listAnchura;
+    private LinkedList<Node>listProfundidad;
     private static final int T = 2;
     private Node mRootNode;
-    private static final int LEFT_CHILD_NODE = 0;
-    private static final int RIGHT_CHILD_NODE = 1;
+    private static int LEFT_CHILD_NODE = 0;
+    private static int RIGHT_CHILD_NODE = 1;
     
      public Btree() {
-        mRootNode = new Node(T);
+        mRootNode = new Node(getT());
         mRootNode.mIsLeafNode = true;
+        listAnchura= new LinkedList<>();
     }
 
     public void add(int key, Object object) {
-        Node rootNode = mRootNode;
+        Node rootNode = getmRootNode();
         if (!update(mRootNode, key, object)) {
-            if (rootNode.mNumKeys == (2 * T - 1)) {
-                Node newRootNode = new Node(T);
-                mRootNode = newRootNode;
+            if (rootNode.mNumKeys == (2 * getT() - 1)) {
+                Node newRootNode = new Node(getT());
+                setmRootNode(newRootNode);
                 newRootNode.mIsLeafNode = false;
                 mRootNode.mChildNodes[0] = rootNode;
                 splitChildNode(newRootNode, 0, rootNode); // Split rootNode and move its median (middle) key up into newRootNode.
@@ -43,26 +85,26 @@ public class Btree {
         // Split the node, node, of a B-Tree into two nodes that both contain T-1 elements and move node's median key up to the parentNode.
     // This method will only be called if node is full; node is the i-th child of parentNode.
     void splitChildNode(Node parentNode, int i, Node node) {
-        Node newNode = new Node(T);
+        Node newNode = new Node(getT());
         newNode.mIsLeafNode = node.mIsLeafNode;
-        newNode.mNumKeys = T - 1;
-        for (int j = 0; j < T - 1; j++) { // Copy the last T-1 elements of node into newNode.
-            newNode.mKeys[j] = node.mKeys[j + T];
-            newNode.mObjects[j] = node.mObjects[j + T];
+        newNode.mNumKeys = getT() - 1;
+        for (int j = 0; j < getT() - 1; j++) { // Copy the last T-1 elements of node into newNode.
+            newNode.mKeys[j] = node.mKeys[j + getT()];
+            newNode.mObjects[j] = node.mObjects[j + getT()];
         }
         if (!newNode.mIsLeafNode) {
-            for (int j = 0; j < T; j++) { // Copy the last T pointers of node into newNode.
-                newNode.mChildNodes[j] = node.mChildNodes[j + T];
+            for (int j = 0; j < getT(); j++) { // Copy the last T pointers of node into newNode.
+                newNode.mChildNodes[j] = node.mChildNodes[j + getT()];
             }
-            for (int j = T; j <= node.mNumKeys; j++) {
+            for (int j = getT(); j <= node.mNumKeys; j++) {
                 node.mChildNodes[j] = null;
             }
         }
-        for (int j = T; j < node.mNumKeys; j++) {
+        for (int j = getT(); j < node.mNumKeys; j++) {
             node.mKeys[j] = 0;
             node.mObjects[j] = null;
         }
-        node.mNumKeys = T - 1;
+        node.mNumKeys = getT() - 1;
 
         // Insert a (child) pointer to node newNode into the parentNode, moving other keys and pointers as necessary.
         for (int j = parentNode.mNumKeys; j >= i + 1; j--) {
@@ -73,10 +115,10 @@ public class Btree {
             parentNode.mKeys[j + 1] = parentNode.mKeys[j];
             parentNode.mObjects[j + 1] = parentNode.mObjects[j];
         }
-        parentNode.mKeys[i] = node.mKeys[T - 1];
-        parentNode.mObjects[i] = node.mObjects[T - 1];
-        node.mKeys[T - 1] = 0;
-        node.mObjects[T - 1] = null;
+        parentNode.mKeys[i] = node.mKeys[getT() - 1];
+        parentNode.mObjects[i] = node.mObjects[getT() - 1];
+        node.mKeys[getT() - 1] = 0;
+        node.mObjects[getT() - 1] = null;
         parentNode.mNumKeys++;
     }
 
@@ -101,7 +143,7 @@ public class Btree {
                 i--;
             }
             i++;
-            if (node.mChildNodes[i].mNumKeys == (2 * T - 1)) {
+            if (node.mChildNodes[i].mNumKeys == (2 * getT() - 1)) {
                 splitChildNode(node, i, node.mChildNodes[i]);
                 if (key > node.mKeys[i]) {
                     i++;
@@ -112,21 +154,21 @@ public class Btree {
     }
 
     public void delete(int key) {
-        delete(mRootNode, key);
+        delete(getmRootNode(), key);
     }
 
     public void delete(Node node, int key) {
         if (node.mIsLeafNode) { // 1. If the key is in node and node is a leaf node, then delete the key from node.
             int i;
             if ((i = node.binarySearch(key)) != -1) { // key is i-th key of node if node contains key.
-                node.remove(i, LEFT_CHILD_NODE);
+                node.remove(i, getLEFT_CHILD_NODE());
             }
         } else {
             int i;
             if ((i = node.binarySearch(key)) != -1) { // 2. If node is an internal node and it contains the key... (key is i-th key of node if node contains key)                   
                 Node leftChildNode = node.mChildNodes[i];
                 Node rightChildNode = node.mChildNodes[i + 1];
-                if (leftChildNode.mNumKeys >= T) { // 2a. If the predecessor child node has at least T keys...
+                if (leftChildNode.mNumKeys >= getT()) { // 2a. If the predecessor child node has at least T keys...
                     Node predecessorNode = leftChildNode;
                     Node erasureNode = predecessorNode; // Make sure not to delete a key from a node with only T - 1 elements.
                     while (!predecessorNode.mIsLeafNode) { // Therefore only descend to the previous node (erasureNode) of the predecessor node and delete the key using 3.
@@ -136,7 +178,7 @@ public class Btree {
                     node.mKeys[i] = predecessorNode.mKeys[predecessorNode.mNumKeys - 1];
                     node.mObjects[i] = predecessorNode.mObjects[predecessorNode.mNumKeys - 1];
                     delete(erasureNode, node.mKeys[i]);
-                } else if (rightChildNode.mNumKeys >= T) { // 2b. If the successor child node has at least T keys...
+                } else if (rightChildNode.mNumKeys >= getT()) { // 2b. If the successor child node has at least T keys...
                     Node successorNode = rightChildNode;
                     Node erasureNode = successorNode; // Make sure not to delete a key from a node with only T - 1 elements.
                     while (!successorNode.mIsLeafNode) { // Therefore only descend to the previous node (erasureNode) of the predecessor node and delete the key using 3.
@@ -150,7 +192,7 @@ public class Btree {
                     // If both of the two child nodes to the left and right of the deleted element have the minimum number of elements,
                     // namely T - 1, they can then be joined into a single node with 2 * T - 2 elements.
                     int medianKeyIndex = mergeNodes(leftChildNode, rightChildNode);
-                    moveKey(node, i, RIGHT_CHILD_NODE, leftChildNode, medianKeyIndex); // Delete i's right child pointer from node.
+                    moveKey(node, i, getRIGHT_CHILD_NODE(), leftChildNode, medianKeyIndex); // Delete i's right child pointer from node.
                     delete(leftChildNode, key);
                 }
             } else { // 3. If the key is not resent in node, descent to the root of the appropriate subtree that must contain key...
@@ -160,10 +202,10 @@ public class Btree {
                 // without having to "back up".
                 i = node.subtreeRootNodeIndex(key);
                 Node childNode = node.mChildNodes[i]; // childNode is i-th child of node.                               
-                if (childNode.mNumKeys == T - 1) {
+                if (childNode.mNumKeys == getT() - 1) {
                     Node leftChildSibling = (i - 1 >= 0) ? node.mChildNodes[i - 1] : null;
                     Node rightChildSibling = (i + 1 <= node.mNumKeys) ? node.mChildNodes[i + 1] : null;
-                    if (leftChildSibling != null && leftChildSibling.mNumKeys >= T) { // 3a. The left sibling has >= T keys...                                              
+                    if (leftChildSibling != null && leftChildSibling.mNumKeys >= getT()) { // 3a. The left sibling has >= T keys...                                              
                         // Move a key from the subtree's root node down into childNode along with the appropriate child pointer.
                         // Therefore, first shift all elements and children of childNode right by 1.
                         childNode.shiftRightByOne();
@@ -179,8 +221,8 @@ public class Btree {
                         node.mObjects[i - 1] = leftChildSibling.mObjects[leftChildSibling.mNumKeys - 1];
 
                         // Remove the key from the left sibling along with its right child node.
-                        leftChildSibling.remove(leftChildSibling.mNumKeys - 1, RIGHT_CHILD_NODE);
-                    } else if (rightChildSibling != null && rightChildSibling.mNumKeys >= T) { // 3a. The right sibling has >= T keys...                                    
+                        leftChildSibling.remove(leftChildSibling.mNumKeys - 1, getRIGHT_CHILD_NODE());
+                    } else if (rightChildSibling != null && rightChildSibling.mNumKeys >= getT()) { // 3a. The right sibling has >= T keys...                                    
                         // Move a key from the subtree's root node down into childNode along with the appropriate child pointer.
                         childNode.mKeys[childNode.mNumKeys] = node.mKeys[i]; // i is the key index in node that is bigger than childNode's biggest key.
                         childNode.mObjects[childNode.mNumKeys] = node.mObjects[i];
@@ -194,14 +236,14 @@ public class Btree {
                         node.mObjects[i] = rightChildSibling.mObjects[0];
 
                         // Remove the key from the right sibling along with its left child node.                                                
-                        rightChildSibling.remove(0, LEFT_CHILD_NODE);
+                        rightChildSibling.remove(0, getLEFT_CHILD_NODE());
                     } else { // 3b. Both of childNode's siblings have only T - 1 keys each...
                         if (leftChildSibling != null) {
                             int medianKeyIndex = mergeNodes(childNode, leftChildSibling);
-                            moveKey(node, i - 1, LEFT_CHILD_NODE, childNode, medianKeyIndex); // i - 1 is the median key index in node when merging with the left sibling.                          
+                            moveKey(node, i - 1, getLEFT_CHILD_NODE(), childNode, medianKeyIndex); // i - 1 is the median key index in node when merging with the left sibling.                          
                         } else if (rightChildSibling != null) {
                             int medianKeyIndex = mergeNodes(childNode, rightChildSibling);
-                            moveKey(node, i, RIGHT_CHILD_NODE, childNode, medianKeyIndex); // i is the median key index in node when merging with the right sibling.
+                            moveKey(node, i, getRIGHT_CHILD_NODE(), childNode, medianKeyIndex); // i is the median key index in node when merging with the right sibling.
                         }
                     }
                 }
@@ -275,13 +317,13 @@ public class Btree {
 
         srcNode.remove(srcKeyIndex, childIndex);
 
-        if (srcNode == mRootNode && srcNode.mNumKeys == 0) {
-            mRootNode = dstNode;
+        if (srcNode == getmRootNode() && srcNode.mNumKeys == 0) {
+            setmRootNode(dstNode);
         }
     }
 
     public Object search(int key) {
-        return search(mRootNode, key);
+        return search(getmRootNode(), key);
     }
 
     // Recursive search method.
@@ -303,7 +345,7 @@ public class Btree {
     }
 
     public Object search2(int key) {
-        return search2(mRootNode, key);
+        return search2(getmRootNode(), key);
     }
 
     // Iterative search method.
@@ -366,11 +408,11 @@ public class Btree {
     }
 
     public String toString() {
-        return printBTree(mRootNode);
+        return printBTree(getmRootNode());
     }
 
     void validate() throws Exception {
-        ArrayList<Integer> array = getKeys(mRootNode);
+        ArrayList<Integer> array = getKeys(getmRootNode());
         for (int i = 0; i < array.size() - 1; i++) {
             if (array.get(i) >= array.get(i + 1)) {
                 throw new Exception("B-Tree invalid: " + array.get(i) + " greater than " + array.get(i + 1));
@@ -401,6 +443,125 @@ public class Btree {
     public Node getmRootNode() {
         return mRootNode;
     }
+    public void recorrido(){
+        
+       LinkedList<Node>cola= new LinkedList<>();
+        if (getmRootNode()!=null) {
+            cola.add(getmRootNode());
+           
+        }
+       
+        setListAnchura(recorridoAnchura(cola, getmRootNode()));
+        LinkedList<Node>auxProfundidad=new LinkedList<>();
+        //el campo 0 es para indicar la altura q empieza en cero
+        setListProfundidad(recorridoProfundidad(getmRootNode(), listAnchura,0));
+        
+    }
+    private LinkedList<Node> recorridoAnchura(LinkedList<Node>cola,Node nodo){
+       LinkedList<Node>recorrido= new LinkedList<>();
+        while (!cola.isEmpty()) {
+            Node aux=new Node(getT());
+            aux=cola.remove();
+            for (int i = 0; i < aux.mChildNodes.length; i++) {
+                cola.add(aux.mChildNodes[i]);
+            }
+            
+            
+        }
+        return recorrido;
+    }
+    //posorden
+    private LinkedList<Node> recorridoProfundidad(Node nodo,LinkedList<Node>listAux,int auxAltura) {
+        auxAltura=altura+1;
+        if (nodo.mIsLeafNode) {
+            listAux.add(nodo);
+            if (getAltura()<auxAltura) {
+                setAltura(auxAltura);
+            }
+            return listAux;
+        }
+        else{
+            for (int i = 0; i < nodo.mChildNodes.length; i++) {
+                listAux=recorridoProfundidad(nodo.mChildNodes[i], listAux,auxAltura);
+            }
+            listAux.add(nodo);
+            
+        }
+        return listAux;
+    }
+    // realiza los recorridos y obtiene altura y niveles del arbol
+    public void obtenerInformacion(){
+        recorrido();
+        setNiveles(getAltura()-1);
+        
+    }
+    
+
+    /**
+     * @return the altura
+     */
+    public int getAltura() {
+        return altura;
+    }
+
+    /**
+     * @param altura the altura to set
+     */
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    /**
+     * @return the niveles
+     */
+    public int getNiveles() {
+        return niveles;
+    }
+
+    /**
+     * @param niveles the niveles to set
+     */
+    public void setNiveles(int niveles) {
+        this.niveles = niveles;
+    }
+
+    /**
+     * @return the listAnchura
+     */
+    public LinkedList<Node> getListAnchura() {
+        return listAnchura;
+    }
+
+    /**
+     * @param listAnchura the listAnchura to set
+     */
+    public void setListAnchura(LinkedList<Node> listAnchura) {
+        this.listAnchura = listAnchura;
+    }
+
+    /**
+     * @param mRootNode the mRootNode to set
+     */
+    public void setmRootNode(Node mRootNode) {
+        this.mRootNode = mRootNode;
+    }
+
+    /**
+     * @return the listProfundidad
+     */
+    public LinkedList<Node> getListProfundidad() {
+        return listProfundidad;
+    }
+
+    /**
+     * @param listProfundidad the listProfundidad to set
+     */
+    public void setListProfundidad(LinkedList<Node> listProfundidad) {
+        this.listProfundidad = listProfundidad;
+    }
+
+    
+    
     
 }
    
