@@ -97,4 +97,13 @@ public class Node {
         }
         return mNumKeys;
     }
+    public boolean isLleaf(){
+     int cont=0;
+        for (int i = 0; i < mChildNodes.length; i++) {
+            if (mChildNodes[i]==null) {
+                cont++;
+            }
+        }
+        return mChildNodes.length==cont;
+    }
 }

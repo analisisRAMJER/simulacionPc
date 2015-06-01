@@ -53,7 +53,8 @@ public class Pagina {
     // asigna el nombre a cada objeto 
     private int asignarNombre() {
         Random  rnd = new Random();
-        int nombre=((int) (rnd.nextInt()*rnd.nextDouble()));
+        int nombre=((int) (rnd.nextDouble() * 9999 + 1));
+        ;
         if (nombre < 0) {
             nombre=nombre*-1;
         }

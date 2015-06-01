@@ -5,7 +5,7 @@
  */
 package vista;
 
-import Modelo.Btree;
+import modelo.b;
 import Modelo.Node;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -27,8 +27,8 @@ public class panelRam extends javax.swing.JPanel implements Runnable{
         initComponents();
     }
     public void pain (Graphics g){
-        Btree arbol = p1.getArbol();
-        Node nodo = arbol.getmRootNode();
+        b arbol = p1.getArbol();
+       
         
         
         

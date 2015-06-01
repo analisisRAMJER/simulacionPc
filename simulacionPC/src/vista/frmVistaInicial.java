@@ -5,7 +5,6 @@
  */
 package vista;
 
-import Modelo.Btree;
 import java.awt.event.ItemEvent;
 import java.util.LinkedList;
 import javax.swing.ComboBoxModel;
@@ -15,6 +14,7 @@ import javax.swing.JOptionPane;
 import modelo.CaracteristicasObjPagina;
 import modelo.Pagina;
 import modelo.Procesador;
+import modelo.BTree;
 
 /**
  *
@@ -212,6 +212,8 @@ private void iniciar() {
         desahabilitarTodo();
         pr.procesar();
         pr.getArbol().obtenerInformacion();
+        System.out.println("recorrido en profundidad "+pr.getArbol().getListProfundidad().size());
+        System.out.println("recorrido en anchura "+pr.getArbol().getListAnchura().size());
         llenarComboBox(pr.getNombresDiscos().size(), 1);
         panelRam1.setP1(pr);
 
@@ -390,6 +392,7 @@ private void iniciar() {
         int seleccionado = Integer.parseInt(itemCount) - 1;
         //encontrar el objeto
         objEncontrado = (Pagina) pr.getArbol().search(pr.getNombresDiscos().get(seleccionado));
+        
         if (objEncontrado != null) {
             System.out.println("se encontro pagina con codigo de pila " + pr.getNombresDiscos().get(seleccionado));
             //se traera el contenido de la pila y se cargara a la ram

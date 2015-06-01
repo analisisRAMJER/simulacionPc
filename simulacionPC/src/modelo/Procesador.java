@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class Procesador {
     private LinkedList<Integer>nombresDiscos=new LinkedList<>();
    
-    private Modelo.Btree arbol= new Modelo.Btree();
+    private b arbol = new b();
     private Ram ram= new Ram();
     
     /*se realizara buscada de paginas,
@@ -77,20 +77,7 @@ public class Procesador {
         this.nombresDiscos = nombresDiscos;
     }
 
-    /**
-     * @return the arbol
-     */
-    public Modelo.Btree getArbol() {
-        return arbol;
-    }
-
-    /**
-     * @param arbol the arbol to set
-     */
-    public void setArbol(Modelo.Btree arbol) {
-        this.arbol = arbol;
-    }
-
+   
     /**
      * @return the ram
      */
@@ -104,4 +91,19 @@ public class Procesador {
     public void setRam(Ram ram) {
         this.ram = ram;
     }
+
+    /**
+     * @return the arbol
+     */
+    public b getArbol() {
+        return arbol;
+    }
+
+    /**
+     * @param arbol the arbol to set
+     */
+    public void setArbol(b arbol) {
+        this.arbol = arbol;
+    }
+
 }
